@@ -5,41 +5,78 @@
 var imageLeft = document.getElementById('left');
 var imageRight = document.getElementById('right');
 var imageSelector = document.getElementById('click-me');
-var imageLeftArrayIndex = 0;
-var imageRightArrayIndex = 0;
+var leftImageText = document.getElementById('left-text');
+var rightImageText = document.getElementById('right-text');
+var currentLeftImageArrayIndex = 0;
+var currentRightImageArrayIndex = 1;
+
 
 // store images: imageArray[]
 var allImages = [];
 
 // Image constructor
-var Images = function(src, name, ){
-    this.likes = 0;
-    this.src = src;
-    this.name = name;
-    this.appeared = 0;
-    
-    allImages.push(this);
+var Images = function(src, name){
+  this.src = src;
+  this.name = name;
+  this.appeared = 0;
+  this.likes = 0;
+
+  allImages.push(this);
 };
 
 // prototypes
 Images.prototype.renderImage = function(){
-    imageLeft.src = this.src;
+  imageLeft.src = this.src;
 };
 
 // event listner and handler
-var imageClickHandler = function(eventObject){
+var imageClickHandler = function(event){
+  //when i get the event back
+  if(event.target.id === 'left' || event.target.id === 'right'){
+
     do {
-        var randomNumber = Math.floor(Math.random() * allImages.length);
-    } while (randomNumber === imageLeftArrayIndex);
-    
-    allImages[imageLeftArrayIndex].likes++;
-    allImages[imageLeftArrayIndex].appeared++;
+      var randomNumberLeft = Math.floor(Math.random() * allImages.length);
+    } while (randomNumberLeft === currentLeftImageArrayIndex || randomNumberLeft === currentRightImageArrayIndex);
 
-    imageLeftArrayIndex = randomNumber;
-    event.target.src = allImages[randomNumber].src;
-}
+    do {
+      var randomNumberRight = Math.floor(Math.random() * allImages.length);
+    } while (randomNumberRight === currentLeftImageArrayIndex || randomNumberRight === randomNumberLeft || randomNumberRight === currentRightImageArrayIndex);
 
-imageLeft.addEventListener('click', imageClickHandler);
+    if(event.target.id === 'left'){
+      allImages[currentLeftImageArrayIndex].likes++;
+      console.log('left was clicked');
+    } else{
+      allImages[currentRightImageArrayIndex].likes++;
+      console.log('right was clicked');
+    }
+
+    allImages[currentLeftImageArrayIndex].appeared++;
+    allImages[currentRightImageArrayIndex].appeared++;
+
+    currentLeftImageArrayIndex = randomNumberLeft;
+    currentRightImageArrayIndex = randomNumberRight;
+
+    // event.target.src = allImages[randomNumber].src;
+    imageLeft = allImages[randomNumberLeft].src;
+    imageRight = allImages[randomNumberRight].src;
+    leftImageText.textContent = allImages[randomNumberLeft].name;
+    rightImageText.textContent = allImages[randomNumberLeft].name;
+  }
+};
+
+imageSection.addEventListener('click', imageClickHandler);
+
+// var imageClickHandler = function(event){
+//     do {
+//         var randomNumber = Math.floor(Math.random() * allImages.length);
+//     } while (randomNumber === imageLeftArrayIndex);
+
+//     allImages[imageLeftArrayIndex].likes++;
+//     allImages[imageLeftArrayIndex].appeared++;
+
+//     imageLeftArrayIndex = randomNumber;
+//     event.target.src = allImages[randomNumber].src;
+// }
 
 // Track likes: start at 0 and increment when clicked
 // images themselves (src)
