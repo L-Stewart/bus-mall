@@ -9,6 +9,7 @@ var leftImageText = document.getElementById('left-text');
 var rightImageText = document.getElementById('right-text');
 var currentLeftImageArrayIndex = 0;
 var currentRightImageArrayIndex = 1;
+var clickCount = 0;
 
 
 // store images: imageArray[]
@@ -61,6 +62,15 @@ var imageClickHandler = function(event){
     imageRight = allImages[randomNumberRight].src;
     leftImageText.textContent = allImages[randomNumberLeft].name;
     rightImageText.textContent = allImages[randomNumberLeft].name;
+
+    clickCount++;
+    if(clickCount === 15){ //tells use we have clicked 15 times
+      renderChart();
+
+
+      //stop listening
+      imageSection.removeEventListener('click', imageClickHandler);
+    }
   }
 };
 
@@ -96,3 +106,69 @@ imageSection.addEventListener('click', imageClickHandler);
 // increment the clicked on images likes
 // Stretch- check images for appearing
 // Stretch- give user feedback on most liked images
+
+
+
+//==================================
+//Chart
+//==================================
+
+
+
+
+var renderChart = function(){
+
+  var imageNames = [];
+  var imageLikes = [];
+  var colors = [];
+  for (var i in allImages){
+    imageNames.push(allImages[i].name);
+    imageLikes.push(allImages[i].likes);
+    colors.push('black');
+  }
+
+  var chartData = {
+    labels: imageNames,
+    datasets: [{
+      label: 'Bus Mall Chart',
+      data: imageLikes,
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)'
+      ],
+      borderColor: [
+        'rgba(255,99,132,1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1
+    }],
+  };
+
+  var chartOptions = {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero:true
+        }
+      }]
+    }
+  };
+
+  var barChart = {
+    type: 'bar',
+    data: chartData,
+    options: chartOptions
+  };
+
+
+  //render the chart
+  var myChart = new Chart(ctx , barChart);
+};
