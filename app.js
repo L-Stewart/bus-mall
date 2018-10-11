@@ -159,7 +159,11 @@ var renderChart = function(){
           beginAtZero:true
         }
       }]
-    }
+    },
+    animation: {
+      duration: 1200,
+    },
+    responsive: true,
   };
 
   var barChart = {
