@@ -7,15 +7,21 @@ body{
 }
 
 #selected{
-    width: 220px;
+    width: 460px;
+    font-size: 12px;
+
 }
 
 section{
-    width: 700px;
+    float: right;
+    width: 460px;
     display: inline;
 }
-
 .products{
-    width: 220px;
-    height: 220px;
+    width: 140px;
+    height: 140px;
+}
+section h3{
+    width: 140px;
+    font-size: 18px;
 }

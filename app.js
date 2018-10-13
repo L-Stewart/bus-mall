@@ -37,7 +37,7 @@ new BusMallImages('/img/bubblegum.jpg', 'Bubblegum');
 new BusMallImages('/img/chair.jpg', 'Chair');
 new BusMallImages('/img/cthulhu.jpg', 'Demon');
 new BusMallImages('/img/dog-duck.jpg', 'Best Friend');
-new BusMallImages('/img/dragon.jpg', 'Stew');
+new BusMallImages('/img/dragon.jpg', 'Dragon Stew');
 new BusMallImages('/img/pen.jpg', 'Best Pen Caps');
 new BusMallImages('/img/pet-sweep.jpg', 'Entertainment');
 new BusMallImages('/img/scissors.jpg', 'Pizza Scissors');
@@ -45,7 +45,7 @@ new BusMallImages('/img/shark.jpg', 'Shark Sleeping Bag');
 new BusMallImages('/img/sweep.png', 'Baby Cleaning Service');
 new BusMallImages('/img/tauntaun.jpg', 'Correct Childhood');
 new BusMallImages('/img/unicorn.jpg', 'Rainbow Stew');
-new BusMallImages('/img/usb.gif', 'Theres a snake in by boot!');
+new BusMallImages('/img/usb.gif', 'Theres a snake in by BOOT!');
 new BusMallImages('/img/water-can.jpg', 'Garden Hijinks');
 new BusMallImages('/img/wine-glass.jpg', 'AA Aid');
 
@@ -56,6 +56,19 @@ BusMallImages.prototype.renderImage = function(){
   imageRight = this.src;
 };
 
+BusMallImages.prototype.renderImageLikedList = function(){
+  var listContainer = document.getElementById('selected');
+  var liEl = document.createElement('li');
+  liEl.textContent = this.name + ' was clicked: ' + this.likes;
+  listContainer.appendChild(liEl);
+};
+
+
+var likedList = function(){
+  for(var i in allImages){
+    allImages[i].renderImageLikedList();
+  }
+};
 // event listner and handler
 var imageClickHandler = function(event){
   //when i get the event back
@@ -102,8 +115,9 @@ var imageClickHandler = function(event){
     rightImageText.textContent = allImages[randomNumberRight].name;
 
     clickCount++;
-    if(clickCount === 15){ //tells use we have clicked 15 times
-      renderChart();
+    if(clickCount === 25){ //tells use we have clicked 15 times
+      likedList();
+      // renderChart();
 
 
       //stop listening
@@ -156,63 +170,63 @@ imageSelector.addEventListener('click', imageClickHandler);
 
 
 
-var renderChart = function(){
+// var renderChart = function(){
 
-  var imageNames = [];
-  var imageLikes = [];
-  var colors = [];
-  for (var i in allImages){
-    imageNames.push(allImages[i].name);
-    imageLikes.push(allImages[i].likes);
-    colors.push('black');
-  }
+//   var imageNames = [];
+//   var imageLikes = [];
+//   var colors = [];
+//   for (var i in allImages){
+//     imageNames.push(allImages[i].name);
+//     imageLikes.push(allImages[i].likes);
+//     colors.push('black');
+//   }
 
-  var chartData = {
-    labels: imageNames,
-    datasets: [{
-      label: 'Bus Mall Chart',
-      data: imageLikes,
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-      borderWidth: 1
-    }],
-  };
+//   var chartData = {
+//     labels: imageNames,
+//     datasets: [{
+//       label: 'Bus Mall Chart',
+//       data: imageLikes,
+//       backgroundColor: [
+//         'rgba(255, 99, 132, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(255, 206, 86, 0.2)',
+//         'rgba(75, 192, 192, 0.2)',
+//         'rgba(153, 102, 255, 0.2)',
+//         'rgba(255, 159, 64, 0.2)'
+//       ],
+//       borderColor: [
+//         'rgba(255,99,132,1)',
+//         'rgba(54, 162, 235, 1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(75, 192, 192, 1)',
+//         'rgba(153, 102, 255, 1)',
+//         'rgba(255, 159, 64, 1)'
+//       ],
+//       borderWidth: 1
+//     }],
+//   };
 
-  var chartOptions = {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero:true
-        }
-      }]
-    },
-    animation: {
-      duration: 1200,
-    },
-    responsive: true,
-  };
+//   var chartOptions = {
+//     scales: {
+//       yAxes: [{
+//         ticks: {
+//           beginAtZero:true
+//         }
+//       }]
+//     },
+//     animation: {
+//       duration: 1200,
+//     },
+//     responsive: true,
+//   };
 
-  var barChart = {
-    type: 'horizontalBar',
-    data: chartData,
-    options: chartOptions
-  };
+//   var barChart = {
+//     type: 'horizontalBar',
+//     data: chartData,
+//     options: chartOptions
+//   };
 
 
-  //render the chart
-  var myChart = new Chart(ctx , barChart);
-};
+//   //render the chart
+//   var myChart = new Chart(ctx , barChart);
+// };
