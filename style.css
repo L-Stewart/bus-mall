@@ -4,24 +4,72 @@ html{
 
 body{
     width: 960px;
+    margin: auto;
+}
+
+header{
+    margin-bottom: 20px;
+}
+
+#bus-mall{
+    border: 0;
+    height: 70px;
+    width: 140px;
+    background-color: aquamarine;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 #selected{
-    width: 460px;
-    font-size: 12px;
-
+    width: 275px;
+    font-size: 14px;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    float: left;
 }
 
 section{
     float: right;
-    width: 460px;
-    display: inline;
 }
+
+#product-images{
+    width: 660px;
+}
+
 .products{
-    width: 140px;
-    height: 140px;
+    width: 200px;
+    height: 200px;
 }
+
+#left{
+    margin-right: 25px;
+}
+
+#middle{
+    margin-right: 25px;
+}
+
+
 section h3{
-    width: 140px;
+    width: 200px;
     font-size: 18px;
+    margin: 0px;
+    display: inline-block;
+    text-align: center;
+}
+
+#left-text{
+    margin-right: 25px;
+}
+
+#middle-text{
+    margin-right: 25px;
+}
+
+hr{
+    clear: both;
+    height: 10px;
+    background-color: #333;
+    border: 0;
 }
