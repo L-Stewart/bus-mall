@@ -82,3 +82,61 @@ var myChart = new Chart(ctx , barChart);
 //     }
 //   }
 // });
+
+
+
+var busmalContainer = document.getElementById('busmal');
+//collect all document element references we need
+
+//references to current images on the page
+var image = function(parameters, values){
+    //builds images
+};
+
+var allImages = [];
+
+var chooseNewImage(){
+    //choose 3 new random images that dont repeat from the current images or eachother
+    //change the source of the 3 images on the page
+    //document.getElementById
+    //counter for all of our clicks
+}
+
+var handleBusmalClick = function(event){
+//check to make sure we click on the right thing (image)
+
+//incerment the correct images likes
+
+//increment all current images appeared count
+
+//call choose new image function()
+
+//incerement the total clicks on the page
+
+//test if we have clicked 25 times
+  //shut listner off
+  //make chart appear
+};
+
+
+//instantiate all new images
+busmalContainer.addEventListener('click', handleBusmalClick);
+
+//==========================================================
+//charts
+//==========================================================
+
+//function to render the chart
+
+var renderChart = function() {
+    //chartjs needs ctx
+
+
+        //collect all data
+        //we need labels, data values, colors
+
+        //create a data object that gets past all our other arrays, based off of the example from chartjs
+
+
+    //call a new chart and pass in ctx and our data
+};

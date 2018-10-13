@@ -1,0 +1,27 @@
+html{
+    background-image: linear-gradient(to bottom right, gray, white);
+}
+
+body{
+    width: 960px;
+}
+
+#selected{
+    width: 460px;
+    font-size: 12px;
+
+}
+
+section{
+    float: right;
+    width: 460px;
+    display: inline;
+}
+.products{
+    width: 140px;
+    height: 140px;
+}
+section h3{
+    width: 140px;
+    font-size: 18px;
+}
