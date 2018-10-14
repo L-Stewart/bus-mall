@@ -73,3 +73,8 @@ hr{
     background-color: #333;
     border: 0;
 }
+
+canvas{
+    width: 960px !important;
+    height: 960px !important;
+}

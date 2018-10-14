@@ -13,9 +13,6 @@ var currentLeftImageArrayIndex = 0;
 var currentMiddleImageArrayIndex = 1;
 var currentRightImageArrayIndex = 2;
 var clickCount = 0;
-
-
-// store images: imageArray[]
 var allImages = [];
 
 // Image constructor
@@ -63,7 +60,6 @@ BusMallImages.prototype.renderImageLikedList = function(){
   listContainer.appendChild(liEl);
 };
 
-
 var likedList = function(){
   for(var i in allImages){
     allImages[i].renderImageLikedList();
@@ -101,12 +97,10 @@ var imageClickHandler = function(event){
     allImages[currentMiddleImageArrayIndex].appeared++;
     allImages[currentRightImageArrayIndex].appeared++;
 
-
     currentLeftImageArrayIndex = randomNumberLeft;
     currentMiddleImageArrayIndex = randomNumberMiddle;
     currentRightImageArrayIndex = randomNumberRight;
 
-    // event.target.src = allImages[randomNumber].src;
     imageLeft.src = allImages[randomNumberLeft].src;
     imageMiddle.src = allImages[randomNumberMiddle].src;
     imageRight.src = allImages[randomNumberRight].src;
@@ -119,7 +113,6 @@ var imageClickHandler = function(event){
       likedList();
       renderChart();
 
-
       //stop listening
       imageSelector.removeEventListener('click', imageClickHandler);
     }
@@ -128,50 +121,49 @@ var imageClickHandler = function(event){
 
 imageSelector.addEventListener('click', imageClickHandler);
 
-
-//=========================================================================================================================
-
-// Track likes: start at 0 and increment when clicked
-// images themselves (src)
-// text
-// size
-// how many times it appeared
-// store its index??
-
-// user wants to click
-// event listner and handler
-// tie the listner to a section
-
-// pages needs to change
-// 1. change image itself
-// 2. change the description
-// 3. prevent image from repeating directly
-// increment the clicked on images likes
-// Stretch- check images for appearing
-// Stretch- give user feedback on most liked images
-
-
-
 //==================================
 //Chart
 //==================================
 
+var min = 0;
+var max = 255;
+
 var randomColor = function(){
-  var min = 0;
-  var max = 255;
-  var rgba = Math.floor(Math.random() * (max - min));
+  var rgba1 = Math.floor(Math.random() * (max - min));
+  var rgba2 = Math.floor(Math.random() * (max - min));
+  var rgba3 = Math.floor(Math.random() * (max - min));
+
+  var color ='rgba(' + rgba1 + ', ' + rgba2 + ', ' + rgba3 + ')';
+  return color;
 };
 
-var ctx = document.getElementById("chart").getContext('2d');
+var ctx = document.getElementById('chart').getContext('2d');
 
 var renderChart = function(){
 
   var imageNames = [];
   var imageLikes = [];
+  var imageShowed = [];
   var colors = [];
+  var appearedColor = [];
+
+  var grayFinal = function(){
+    for(var i =0; i < 20; i++)
+    appearedColor.push('rgba(85, 85, 85');
+  }
+
+  var rgbaFinal = function(){
+    for(var i = 0; i < 20; i++)
+      colors.push(randomColor());
+  };
+
+  grayFinal();
+  rgbaFinal();
+
   for (var i in allImages){
     imageNames.push(allImages[i].name);
     imageLikes.push(allImages[i].likes);
+    imageShowed.push(allImages[i].appeared)
     colors.push('black');
   }
 
@@ -180,22 +172,16 @@ var renderChart = function(){
     datasets: [{
       label: 'Bus Mall Chart',
       data: imageLikes,
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
+      data2: imageShowed,
+      backgroundColor: colors,
+      borderColor: colors,
+      borderWidth: 1
+    },
+    {
+      label: 'Times Images Were Shown',
+      data: imageShowed,
+      backgroundColor: appearedColor,
+      borderColor: appearedColor,
       borderWidth: 1
     }],
   };
@@ -209,7 +195,7 @@ var renderChart = function(){
       }]
     },
     animation: {
-      duration: 1200,
+      duration: 1400,
     },
     responsive: true,
   };
