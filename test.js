@@ -3,6 +3,10 @@
 var ctx = document.getElementById('chart').getContext('2d');
 console.log(ctx);
 
+
+var storeNumbers = localStorage.getItem('images');
+
+
 var chartData = {
   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
   datasets: [{
@@ -46,6 +50,16 @@ var barChart = {
 
 var myChart = new Chart(ctx , barChart);
 
+
+var storeToLocalStoreage = function(){
+  localStorage.setItem('imgages', allImages);
+};
+
+storeToLocalStoreage();
+
+
+
+
 // var myChart = new Chart(ctx, {
 //   type: 'bar',
 //   data: {
@@ -82,6 +96,8 @@ var myChart = new Chart(ctx , barChart);
 //     }
 //   }
 // });
+
+
 
 
 
@@ -140,3 +156,5 @@ var renderChart = function() {
 
     //call a new chart and pass in ctx and our data
 };
+
+
