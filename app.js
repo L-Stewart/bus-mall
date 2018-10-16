@@ -149,8 +149,8 @@ var renderChart = function(){
 
   var grayFinal = function(){
     for(var i =0; i < 20; i++)
-    appearedColor.push('rgba(85, 85, 85');
-  }
+      appearedColor.push('rgba(85, 85, 85');
+  };
 
   var rgbaFinal = function(){
     for(var i = 0; i < 20; i++)
@@ -163,7 +163,7 @@ var renderChart = function(){
   for (var i in allImages){
     imageNames.push(allImages[i].name);
     imageLikes.push(allImages[i].likes);
-    imageShowed.push(allImages[i].appeared)
+    imageShowed.push(allImages[i].appeared);
     colors.push('black');
   }
 
