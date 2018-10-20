@@ -14,6 +14,7 @@ var currentMiddleImageArrayIndex = 1;
 var currentRightImageArrayIndex = 2;
 var clickCount = 0;
 var allImages = [];
+var chartItems = [];
 
 // Image constructor
 var BusMallImages = function(src, name){
@@ -21,30 +22,41 @@ var BusMallImages = function(src, name){
   this.name = name;
   this.appeared = 0;
   this.likes = 0;
-
+  
+  chartItems.push(this);
   allImages.push(this);
+  
 };
 
-new BusMallImages('./img/bag.jpg', 'R2D2 Roller Bag');
-new BusMallImages('./img/banana.jpg', 'Banana Slicer');
-new BusMallImages('./img/bathroom.jpg', 'Bathroom TP and Tablet Holder');
-new BusMallImages('./img/boots.jpg', 'Boot Sandles');
-new BusMallImages('./img/breakfast.jpg', 'Toaster Oven Coffee Combo');
-new BusMallImages('./img/bubblegum.jpg', 'Bubblegum');
-new BusMallImages('./img/chair.jpg', 'Chair');
-new BusMallImages('./img/cthulhu.jpg', 'Demon');
-new BusMallImages('./img/dog-duck.jpg', 'Best Friend');
-new BusMallImages('./img/dragon.jpg', 'Dragon Stew');
-new BusMallImages('./img/pen.jpg', 'Best Pen Caps');
-new BusMallImages('./img/pet-sweep.jpg', 'Entertainment');
-new BusMallImages('./img/scissors.jpg', 'Pizza Scissors');
-new BusMallImages('./img/shark.jpg', 'Shark Sleeping Bag');
-new BusMallImages('./img/sweep.png', 'Baby Cleaning Service');
-new BusMallImages('./img/tauntaun.jpg', 'Correct Childhood');
-new BusMallImages('./img/unicorn.jpg', 'Rainbow Stew');
-new BusMallImages('./img/usb.gif', 'Theres a snake in by BOOT!');
-new BusMallImages('./img/water-can.jpg', 'Garden Hijinks');
-new BusMallImages('./img/wine-glass.jpg', 'AA Aid');
+var localObjects = function(){
+  if(localStorage.getItem('allObjects')){
+    allImages = JSON.parse(localStorage.getItem('allObjects'));
+  }else{
+    new BusMallImages('./img/bag.jpg', 'R2D2 Roller Bag');
+    new BusMallImages('./img/banana.jpg', 'Banana Slicer');
+    new BusMallImages('./img/bathroom.jpg', 'Bathroom TP and Tablet Holder');
+    new BusMallImages('./img/boots.jpg', 'Boot Sandles');
+    new BusMallImages('./img/breakfast.jpg', 'Toaster Oven Coffee Combo');
+    new BusMallImages('./img/bubblegum.jpg', 'Bubblegum');
+    new BusMallImages('./img/chair.jpg', 'Chair');
+    new BusMallImages('./img/cthulhu.jpg', 'Demon');
+    new BusMallImages('./img/dog-duck.jpg', 'Best Friend');
+    new BusMallImages('./img/dragon.jpg', 'Dragon Stew');
+    new BusMallImages('./img/pen.jpg', 'Best Pen Caps');
+    new BusMallImages('./img/pet-sweep.jpg', 'Entertainment');
+    new BusMallImages('./img/scissors.jpg', 'Pizza Scissors');
+    new BusMallImages('./img/shark.jpg', 'Shark Sleeping Bag');
+    new BusMallImages('./img/sweep.png', 'Baby Cleaning Service');
+    new BusMallImages('./img/tauntaun.jpg', 'Correct Childhood');
+    new BusMallImages('./img/unicorn.jpg', 'Rainbow Stew');
+    new BusMallImages('./img/usb.gif', 'Theres a snake in by BOOT!');
+    new BusMallImages('./img/water-can.jpg', 'Garden Hijinks');
+    new BusMallImages('./img/wine-glass.jpg', 'AA Aid');
+  }
+};
+localObjects();
+console.log(allImages);
+// console.log('local' + localImages);
 
 // prototypes
 BusMallImages.prototype.renderImage = function(){
@@ -53,16 +65,16 @@ BusMallImages.prototype.renderImage = function(){
   imageRight = this.src;
 };
 
-BusMallImages.prototype.renderImageLikedList = function(){
+var renderImageLikedList = function(images){
   var listContainer = document.getElementById('selected');
   var liEl = document.createElement('li');
-  liEl.textContent = this.name + ' was clicked: ' + this.likes;
+  liEl.textContent = images.name + ' was clicked: ' + images.likes;
   listContainer.appendChild(liEl);
 };
 
 var likedList = function(){
   for(var i in allImages){
-    allImages[i].renderImageLikedList();
+    renderImageLikedList( allImages[i]);
   }
 };
 // event listner and handler
@@ -84,18 +96,26 @@ var imageClickHandler = function(event){
 
     if(event.target.id === 'left'){
       allImages[currentLeftImageArrayIndex].likes++;
+      chartItems[currentLeftImageArrayIndex].likes++;
       console.log('left was clicked');
     } else if(event.target.id === 'right'){
       allImages[currentRightImageArrayIndex].likes++;
+      chartItems[currentRightImageArrayIndex].likes++;
       console.log('right was clicked');
     } else {
       allImages[currentMiddleImageArrayIndex].likes++;
+      chartItems[currentMiddleImageArrayIndex].likes++;
       console.log('middle was clicked');
     }
 
     allImages[currentLeftImageArrayIndex].appeared++;
+    chartItems[currentLeftImageArrayIndex].appeared++;
+
     allImages[currentMiddleImageArrayIndex].appeared++;
+    chartItems[currentMiddleImageArrayIndex].appeared++;
+
     allImages[currentRightImageArrayIndex].appeared++;
+    chartItems[currentRightImageArrayIndex].appeared++;
 
     currentLeftImageArrayIndex = randomNumberLeft;
     currentMiddleImageArrayIndex = randomNumberMiddle;
@@ -110,6 +130,7 @@ var imageClickHandler = function(event){
 
     clickCount++;
     if(clickCount === 25){ //tells use we have clicked 15 times
+      localStorage.setItem('allObjects', JSON.stringify(allImages));
       likedList();
       renderChart();
 
@@ -160,10 +181,10 @@ var renderChart = function(){
   grayFinal();
   rgbaFinal();
 
-  for (var i in allImages){
-    imageNames.push(allImages[i].name);
-    imageLikes.push(allImages[i].likes);
-    imageShowed.push(allImages[i].appeared);
+  for (var i in chartItems){
+    imageNames.push(chartItems[i].name);
+    imageLikes.push(chartItems[i].likes);
+    imageShowed.push(chartItems[i].appeared);
     colors.push('black');
   }
 
@@ -172,7 +193,6 @@ var renderChart = function(){
     datasets: [{
       label: 'Bus Mall Chart',
       data: imageLikes,
-      data2: imageShowed,
       backgroundColor: colors,
       borderColor: colors,
       borderWidth: 1
