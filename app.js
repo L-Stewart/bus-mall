@@ -24,8 +24,6 @@ var BusMallImages = function(src, name){
   this.likes = 0;
 
   chartItems.push(this);
-  allImages.push(this);
-
 };
 
 new BusMallImages('./img/bag.jpg', 'R2D2 Roller Bag');
@@ -53,26 +51,26 @@ var localObjects = function(){
   if(localStorage.getItem('allObjects')){
     allImages = JSON.parse(localStorage.getItem('allObjects'));
   }else{
-    new BusMallImages('./img/bag.jpg', 'R2D2 Roller Bag');
-    new BusMallImages('./img/banana.jpg', 'Banana Slicer');
-    new BusMallImages('./img/bathroom.jpg', 'Bathroom TP and Tablet Holder');
-    new BusMallImages('./img/boots.jpg', 'Boot Sandles');
-    new BusMallImages('./img/breakfast.jpg', 'Toaster Oven Coffee Combo');
-    new BusMallImages('./img/bubblegum.jpg', 'Bubblegum');
-    new BusMallImages('./img/chair.jpg', 'Chair');
-    new BusMallImages('./img/cthulhu.jpg', 'Demon');
-    new BusMallImages('./img/dog-duck.jpg', 'Best Friend');
-    new BusMallImages('./img/dragon.jpg', 'Dragon Stew');
-    new BusMallImages('./img/pen.jpg', 'Best Pen Caps');
-    new BusMallImages('./img/pet-sweep.jpg', 'Entertainment');
-    new BusMallImages('./img/scissors.jpg', 'Pizza Scissors');
-    new BusMallImages('./img/shark.jpg', 'Shark Sleeping Bag');
-    new BusMallImages('./img/sweep.png', 'Baby Cleaning Service');
-    new BusMallImages('./img/tauntaun.jpg', 'Correct Childhood');
-    new BusMallImages('./img/unicorn.jpg', 'Rainbow Stew');
-    new BusMallImages('./img/usb.gif', 'Theres a snake in by BOOT!');
-    new BusMallImages('./img/water-can.jpg', 'Garden Hijinks');
-    new BusMallImages('./img/wine-glass.jpg', 'AA Aid');
+    allImages.push(new BusMallImages('./img/bag.jpg', 'R2D2 Roller Bag'));
+    allImages.push(new BusMallImages('./img/banana.jpg', 'Banana Slicer'));
+    allImages.push(new BusMallImages('./img/bathroom.jpg', 'Bathroom TP and Tablet Holder'));
+    allImages.push(new BusMallImages('./img/boots.jpg', 'Boot Sandles'));
+    allImages.push(new BusMallImages('./img/breakfast.jpg', 'Toaster Oven Coffee Combo'));
+    allImages.push(new BusMallImages('./img/bubblegum.jpg', 'Bubblegum'));
+    allImages.push(new BusMallImages('./img/chair.jpg', 'Chair'));
+    allImages.push(new BusMallImages('./img/cthulhu.jpg', 'Demon'));
+    allImages.push(new BusMallImages('./img/dog-duck.jpg', 'Best Friend'));
+    allImages.push(new BusMallImages('./img/dragon.jpg', 'Dragon Stew'));
+    allImages.push(new BusMallImages('./img/pen.jpg', 'Best Pen Caps'));
+    allImages.push(new BusMallImages('./img/pet-sweep.jpg', 'Entertainment'));
+    allImages.push(new BusMallImages('./img/scissors.jpg', 'Pizza Scissors'));
+    allImages.push(new BusMallImages('./img/shark.jpg', 'Shark Sleeping Bag'));
+    allImages.push(new BusMallImages('./img/sweep.png', 'Baby Cleaning Service'));
+    allImages.push(new BusMallImages('./img/tauntaun.jpg', 'Correct Childhood'));
+    allImages.push(new BusMallImages('./img/unicorn.jpg', 'Rainbow Stew'));
+    allImages.push(new BusMallImages('./img/usb.gif', 'Theres a snake in by BOOT!'));
+    allImages.push(new BusMallImages('./img/water-can.jpg', 'Garden Hijinks'));
+    allImages.push(new BusMallImages('./img/wine-glass.jpg', 'AA Aid'));
   }
 };
 localObjects();
@@ -147,6 +145,7 @@ var imageClickHandler = function(event){
     middleImageText.textContent = allImages[randomNumberMiddle].name;
     rightImageText.textContent = allImages[randomNumberRight].name;
 
+    localStorage.setItem('allObjects', JSON.stringify(allImages));
     clickCount++;
     if(clickCount === 25){ //tells use we have clicked 15 times
       localStorage.setItem('allObjects', JSON.stringify(allImages));
